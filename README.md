@@ -1,5 +1,6 @@
 # keras_bundled_models_demo
 ## Keras applications
+https://keras.io/applications/#models-for-image-classification-with-weights-trained-on-imagenet
 
 ## Model .h5 file
 .h5 weight files will be downloaded into "C:\Users\{user-name}\.keras\models"
