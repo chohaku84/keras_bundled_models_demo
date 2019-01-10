@@ -3,6 +3,7 @@ import keras
 # Some keras models need unique preporecess functions
 from keras.preprocessing import image
 from keras.applications.xception import preprocess_input,decode_predictions
+from keras.utils import multi_gpu_model
 
 # Import basic libraries
 import os
