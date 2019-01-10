@@ -1,6 +1,6 @@
 # Import keras libraries
 import keras
-# Some keras models need uniq preporecess functions
+# Some keras models need unique preporecess functions
 from keras.preprocessing import image
 from keras.applications.xception import preprocess_input,decode_predictions
 
@@ -46,8 +46,8 @@ def health_check():
             }
         return jsonify(response), 200
 
-@app.route('/ask', methods=['POST'])
-def ask():
+@app.route('/postImage', methods=['POST'])
+def post_image():
     # Validate images extension
     image_type_ok_list = ['jpeg','png','gif','bmp']
     if 'file' not in request.files:
