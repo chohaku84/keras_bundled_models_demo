@@ -4,13 +4,14 @@ import keras
 from keras.preprocessing import image
 from keras.applications.xception import preprocess_input,decode_predictions
 
+# Import basic libraries
 import os
 import time
 import numpy as np
 import tensorflow as tf
 import imghdr
 import cv2
-import argparse
+from argparse import ArgumentParser
 
 # Import flask libraries
 import hashlib
@@ -20,21 +21,21 @@ from urllib.parse import urlparse
 from uuid import uuid4
 from flask import Flask, jsonify, request, send_file, make_response, send_from_directory
 
-# root directory of the project
+# Directory of the project
 ROOT_DIR = os.getcwd()
 IMAGE_DIR = os.path.join(ROOT_DIR, "images")
 
 ##################################################
 
 def load_model():
-    # load the pre-trained Keras model
+    # Load the pre-trained Keras model
     global model
     model = keras.applications.xception.Xception(include_top=True, weights='imagenet', input_tensor=None, input_shape=None, pooling=None, classes=1000)
-            # this is key : save the graph after loading the model
+    # This is key : save the graph after loading the model
     global graph
     graph = tf.get_default_graph()
 
-# instantiate the app
+# Instantiate the app
 app = Flask(__name__)
 
 @app.route('/healthCheck', methods=['GET'])
@@ -47,7 +48,7 @@ def health_check():
 
 @app.route('/ask', methods=['POST'])
 def ask():
-    # validate images extension
+    # Validate images extension
     image_type_ok_list = ['jpeg','png','gif','bmp']
     if 'file' not in request.files:
         response = {
@@ -55,10 +56,10 @@ def ask():
         }
         return jsonify(response), 400
 
-    # response data
+    # Response data
     data = {"success": False}
 
-    # run keras model
+    # Run keras model
     uploaded_file = request.files['file']
     full_filename = os.path.join(IMAGE_DIR, uploaded_file.filename)
     uploaded_file.save(full_filename)
@@ -73,7 +74,7 @@ def ask():
 
     results = decode_predictions(preds)
 
-    # return response
+    # Return response
     if results:
         data["predictions"] = []
         for (imagenetID, label, prob) in results[0]:
@@ -89,7 +90,6 @@ def ask():
         return jsonify(response), 200
 
 if __name__ == '__main__':
-    from argparse import ArgumentParser
     parser = ArgumentParser()
     parser.add_argument('-p', '--port', default=80, type=int, help='port to listen on')
     args = parser.parse_args()
