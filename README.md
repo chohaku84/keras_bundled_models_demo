@@ -2,6 +2,17 @@
 ## Keras applications
 https://keras.io/applications/#models-for-image-classification-with-weights-trained-on-imagenet
 
+Xception
+VGG16
+VGG19
+ResNet50
+InceptionV3
+InceptionResNetV2
+MobileNet
+DenseNet
+NASNet
+MobileNetV2
+
 ## Model .h5 file
 .h5 weight files will be downloaded into "C:\Users\{user-name}\.keras\models"
 
