@@ -19,7 +19,7 @@ MobileNetV2
 ## Notes
 Note that some of these models need unique "preprocess_input" functions and input shape (target_size)
 
-For example, for Xception model
+For example, using Xception model you need set target_size=(299,299) instead of (224,224) for most models.
 ```
 from keras.applications.xception import preprocess_input
 
